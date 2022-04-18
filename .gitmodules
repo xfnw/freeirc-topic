@@ -1,0 +1,3 @@
+[submodule "vulppkgs"]
+	path = vulppkgs
+	url = https://github.com/xfnw/vulppkgs
