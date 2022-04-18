@@ -4,10 +4,10 @@ let
   freeirc-topic = pkgs.stdenv.mkDerivation
     {
       name = "freeirc-topic";
-      buildInputs = with import ./vulppkgs { };
-        [ pkgs.zsh pkgs.catgirl scirc expdays ];
 
       src = builtins.path { path = ./.; name = "freeirc-topic"; };
+
+      buildInputs = [ pkgs.zsh ];
 
       installPhase = ''
         mkdir -p $out/bin
@@ -16,6 +16,7 @@ let
     }; in
 
 pkgs.mkShell {
-  nativeBuildInputs = [ freeirc-topic ];
+  nativeBuildInputs = with import ./vulppkgs { };
+    [ freeirc-topic pkgs.zsh pkgs.catgirl scirc expdays ];
 }
 
