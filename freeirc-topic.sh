@@ -5,6 +5,7 @@ getcerts(){
 
 	for domain port in $(<domains)
 	do
+		echo "getting $domain:$port" 1>&2
 		echo "$(catgirl -h $domain -p $port -o | expdays || echo DOWN)\t$domain"
 	done
 
