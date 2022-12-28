@@ -24,6 +24,5 @@ sortedcerts(){
 }
 
 
-{ < prefix ; sortedcerts } | tr '\n' ' '
-echo
+./prefix "$(sortedcerts)"
 
