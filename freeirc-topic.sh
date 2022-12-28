@@ -24,4 +24,6 @@ sortedcerts(){
 }
 
 
-echo "/topic #freeirc-team :Welcome to the Freeirc team channel if you need support please join #freeirc | [FreeIRC Website][https://freeirc.org] | cert expirations: $(sortedcerts)"
+{ < prefix ; sortedcerts } | tr '\n' ' '
+echo
+
