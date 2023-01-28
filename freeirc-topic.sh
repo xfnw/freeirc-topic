@@ -1,5 +1,19 @@
 #!/usr/bin/env zsh
 
+datediff(){
+
+	dat="$1"
+	if [ "$(uname)" = "OpenBSD" ]
+	then
+		echo $(( ($(date -j -f "%F" "$dat" "+%s") - $(date '+%s')) / 86400 ))
+	elif [ -x /bin/busybox ]
+	then # -1 to correct for it rounding up
+		echo $(( ($(busybox date -D "%Y-%m-%d" -d "$dat" "+%s") - $(busybox date '+%s')) / 86400 - 1 ))
+	else
+		echo $(( ($(date -d "$dat" '+%s') - $(date '+%s')) / 86400 ))
+	fi
+
+}
 
 getcerts(){
 
@@ -12,10 +26,19 @@ getcerts(){
 
 }
 
+getdates(){
+
+	while IFS="	" read date name
+	do
+		echo "$(datediff $date)\t$name"
+	done <dates
+
+}
 
 sortedcerts(){
 
-	for days domain in $(getcerts | sort -h | head -n4)
+	{getcerts; getdates} | sort -h | head -n4 |
+	while IFS="	" read days domain
 	do
 		echo "$domain in $days days,"
 	done |
