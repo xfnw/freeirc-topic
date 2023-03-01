@@ -1,0 +1,1 @@
+sqlite3 e/certs.db ".mode ${1:-table}" "select host, 0-daysleft as daysexpired, date(request, 'unixepoch') as lastchecked from (select * from (select *, (expire - unixepoch('now')) / 86400 as daysleft from certs where expire order by request desc) group by host) where daysleft < 0 order by daysleft;"
