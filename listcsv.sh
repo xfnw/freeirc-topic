@@ -19,7 +19,7 @@ parsedate(){
 
 getcerts(){
 
-	for domain port in $(<$DOMAINS)
+	for domain port in $(shuf $DOMAINS)
 	do
 		{
 			expdate="$(catgirl -h $domain -p $port -o | openssl x509 -noout -enddate | cut -d= -f2)"

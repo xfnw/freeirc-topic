@@ -17,7 +17,7 @@ datediff(){
 
 getcerts(){
 
-	for domain port in $(<domains)
+	for domain port in $(shuf domains)
 	do
 		echo "getting $domain:$port" 1>&2
 		echo "$(catgirl -h $domain -p $port -o | expdays || echo DOWN)\t$domain" &

@@ -4,7 +4,7 @@ DOMAINS=${1:-domains}
 
 getcerts(){
 
-	for domain port in $(<$DOMAINS)
+	for domain port in $(shuf $DOMAINS)
 	do
 		{
 			echo "$(catgirl -h $domain -p $port -o | expdays || echo DOWN)\t$domain:$port"
